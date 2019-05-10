@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
   name: {
@@ -23,6 +23,16 @@ const projectSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   }
-})
+});
 
-module.exports = mongoose.model('project', projectSchema)
+
+projectSchema.virtual('budgetLeft').get(function() {
+  return this.budget - this.spent;
+});
+
+projectSchema.index({
+  org: 1,
+  name: 1
+}, { unique: true });
+
+module.exports = mongoose.model('project', projectSchema);

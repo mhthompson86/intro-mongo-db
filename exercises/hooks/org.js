@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const Project = require('./project')
-const cdnUrl = 'https://cdn.adminapp.com'
+const mongoose = require('mongoose');
+const Project = require('./project');
+const cdnUrl = 'https://cdn.adminapp.com';
 
 const orgSchema = new mongoose.Schema({
   name: {
@@ -21,6 +21,11 @@ const orgSchema = new mongoose.Schema({
       max: 4
     }
   }
-})
+});
 
-module.exports = mongoose.model('org', orgSchema)
+orgSchema.post('remove', async function(doc, next) {
+  await Project.deleteMany({ org: doc._id });
+  next();
+});
+
+module.exports = mongoose.model('org', orgSchema);

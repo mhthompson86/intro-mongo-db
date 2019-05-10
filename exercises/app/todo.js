@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const todoSchema = new mongoose.Schema({
   message: {
@@ -12,7 +12,7 @@ const todoSchema = new mongoose.Schema({
     required: true
   },
   dueOn: Date
-}, {timestamps: true})
+}, { timestamps: true });
 
 
-module.exports = mongoose.model('todo', todoSchema)
+module.exports = mongoose.model('todo', todoSchema);
